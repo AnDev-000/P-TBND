@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+:host {
+  display: flex;
+  align-items: center;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  height: 60px;
+  padding: 0 20px;
+  transition: transform 0.4s ease-out; /* 🔥 Animación para que el nav se deslice */
+}
+
+nav ul {
+  display: flex;
+  gap: 20px;
+  overflow: hidden;
+}
+
+nav ul li {
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text-color);
+  transition: color 0.3s ease, transform 0.3s ease; /* 🔥 Animación más fluida */
+}
+
+nav ul li.active {
+  color: var(--accent-color);
+  font-weight: bold;
+  transform: scale(1.2); /* 🔥 Se agranda al estar activo */
+}

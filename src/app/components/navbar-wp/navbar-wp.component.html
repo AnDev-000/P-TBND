@@ -1,0 +1,10 @@
+<nav>
+  <ul>
+    <li *ngFor="let section of sections"
+        (click)="changeSection(section)"
+        [ngClass]="{'active': section === activeSection}"
+        [attr.data-section]="section">
+      {{ section | titlecase }}
+    </li>
+  </ul>
+</nav>

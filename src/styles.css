@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --background-color: white;
+  --text-color: black;
+  --accent-color: #0078D7;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: black;
+    --text-color: white;
+    --accent-color: #FF0000;
+  }
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}

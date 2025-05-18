@@ -1,0 +1,30 @@
+html, body {
+  overflow: hidden; /* 🔥 Esto evita el scroll vertical involuntario */
+  height: 100vh;
+  margin: 0;
+}
+
+.content-wrapper {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden; /* 🔥 Bloqueamos el scroll vertical dentro del contenedor */
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0 20px;
+  width: 100vw;
+  height: 100vh;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.content-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.section {
+  width: 100vw;
+  flex-shrink: 0;
+  padding: 20px;
+  text-align: center;
+  scroll-snap-align: center;
+}
