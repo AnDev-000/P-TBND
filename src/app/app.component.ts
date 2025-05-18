@@ -7,7 +7,7 @@ import { MainviewWpComponent } from './components/mainview-wp/mainview-wp.compon
   standalone: true,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  imports: [NavbarWpComponent, MainviewWpComponent] // ✅ Aseguramos la importación
+  imports: [NavbarWpComponent, MainviewWpComponent]
 })
 export class AppComponent {
   title = 'P-TBND';
@@ -23,19 +23,54 @@ export class AppComponent {
     themeQuery.addEventListener('change', (event) => {
       this.applyTheme(event.matches);
     });
+
+    // 🔥 Detectamos el color de énfasis del sistema
+    this.detectAccentColor();
   }
 
   applyTheme(isDarkMode: boolean) {
     const root = document.documentElement;
     if (isDarkMode) {
-      root.style.setProperty('--background-color', '#000000'); // Negro sólido
-      root.style.setProperty('--text-color', '#FFFFFF'); // Blanco puro
-      root.style.setProperty('--accent-color', '#FF0000'); // Rojo (tema Windows)
+      root.style.setProperty('--background-color', '#000000');
+      root.style.setProperty('--text-color', '#FFFFFF');
     } else {
-      root.style.setProperty('--background-color', '#FFFFFF'); // Blanco sólido
-      root.style.setProperty('--text-color', '#000000'); // Negro puro
-      root.style.setProperty('--accent-color', '#0078D7'); // Azul clásico de Windows
+      root.style.setProperty('--background-color', '#FFFFFF');
+      root.style.setProperty('--text-color', '#000000');
+    }
+
+    // 🔥 Aplicamos también el color de énfasis
+    this.detectAccentColor();
+  }
+
+  detectAccentColor() {
+    const testElement = document.createElement('div');
+    testElement.style.cssText = 'color: -webkit-accent-color'; // Intentamos detectar el color de énfasis
+    document.body.appendChild(testElement);
+
+    const accentColor = getComputedStyle(testElement).color;
+    document.body.removeChild(testElement);
+
+    console.log(`Color de énfasis detectado: ${accentColor}`); // 🔥 Verifica en la consola si se está detectando
+
+    if (accentColor !== 'rgba(0, 0, 0, 0)' && accentColor !== 'transparent') { 
+      document.documentElement.style.setProperty('--accent-color', accentColor);
+    } else {
+      console.log('No se pudo detectar el color de énfasis. Probando método alternativo...');
+      this.detectBackgroundColor();
     }
   }
+
+
+  detectBackgroundColor() {
+    const root = document.documentElement;
+    const bgColor = getComputedStyle(root).backgroundColor; // 🔥 Detectamos el color de fondo del sistema
+
+    if (bgColor && bgColor !== 'transparent') {
+      document.documentElement.style.setProperty('--accent-color', bgColor); // 🔥 Aplicamos el color al navbar
+    } else {
+      console.log('No se pudo detectar el color de fondo del sistema.');
+    }
+  }
+
 
 }
